@@ -1,0 +1,13 @@
+.list {
+  margin: 20px;
+}
+.list .items {
+  gap: 2rem;
+}
+.list .items .item {
+  min-width: 250px;
+}
+.list .items .item .picture {
+  max-width: 400px;
+  height: auto;
+}/*# sourceMappingURL=list.component.css.map */

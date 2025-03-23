@@ -1,0 +1,8 @@
+.app .link {
+  cursor: pointer;
+  font-size: 16px;
+  text-decoration: none;
+}
+.app .link + .link {
+  margin-left: 10px;
+}/*# sourceMappingURL=app.component.css.map */

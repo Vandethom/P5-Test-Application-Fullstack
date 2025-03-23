@@ -4,6 +4,7 @@ module.exports = {
   },
   preset: 'jest-preset-angular',
   setupFilesAfterEnv: ['<rootDir>/setup-jest.ts'],
+  testEnvironment: 'jsdom',
   bail: false,
   verbose: false,
   collectCoverage: false,
@@ -24,4 +25,12 @@ module.exports = {
   moduleDirectories: [
     "node_modules"
   ],
+  coverageThreshold: {
+    global: {
+      branches: 80,
+      functions: 80,
+      lines: 80,
+      statements: 80
+    }
+  }
 };
