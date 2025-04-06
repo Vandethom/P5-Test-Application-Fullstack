@@ -1,11 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { expect } from '@jest/globals';
-
-import { NotFoundComponent } from './not-found.component';
+import { expect }                    from '@jest/globals';
+import { NotFoundComponent }         from './not-found.component';
 
 describe('NotFoundComponent', () => {
   let component: NotFoundComponent;
-  let fixture: ComponentFixture<NotFoundComponent>;
+  let fixture  : ComponentFixture<NotFoundComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -13,7 +12,7 @@ describe('NotFoundComponent', () => {
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(NotFoundComponent);
+    fixture   = TestBed.createComponent(NotFoundComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

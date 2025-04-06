@@ -1,0 +1,15 @@
+{
+    "id": 1,
+    "name": "Yoga Session 1",
+    "description": "A relaxing yoga session for beginners",
+    "date": "2025-05-01",
+    "teacher_id": 1,
+    "users": [3, 4],
+    "teacher": {
+      "id": 1,
+      "lastName": "Instructor",
+      "firstName": "Yoga"
+    },
+    "createdAt": "2023-01-01",
+    "updatedAt": "2023-01-01"
+  }

@@ -20,6 +20,9 @@
         "build": {
           "builder": "@angular-builders/custom-webpack:browser",
           "options": {
+            "customWebpackConfig": {
+              "path": "./cypress/coverage.webpack.ts"
+            },
             "outputPath": "dist/yoga",
             "index": "src/index.html",
             "main": "src/main.ts",
