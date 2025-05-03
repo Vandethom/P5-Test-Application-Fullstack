@@ -51,7 +51,7 @@ describe('SessionService', () => {
     beforeEach(() => {
       // Setup logged in state
       service.logIn(mockSessionInfo);
-      expect(service.isLogged).toBe(true); // Verify setup
+      expect(service.isLogged).toBe(true);
     });
 
     it('should clear session information and set isLogged to false', () => {
@@ -73,7 +73,6 @@ describe('SessionService', () => {
 
   describe('$isLogged', () => {
     it('should emit the current value of isLogged', (done) => {
-      // Initial state
       service.$isLogged().subscribe(isLogged => {
         expect(isLogged).toBe(false);
         done();
@@ -93,7 +92,6 @@ describe('SessionService', () => {
         }
       });
       
-      // Trigger state changes
       service.logIn(mockSessionInfo);
       service.logOut();
     });

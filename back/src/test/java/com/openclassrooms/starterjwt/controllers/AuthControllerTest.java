@@ -89,7 +89,6 @@ public class AuthControllerTest {
         signupRequest.setPassword("password");
         when(userRepository.existsByEmail("user@email.com")).thenReturn(false);
         when(encoder.encode(anyString())).thenReturn("encodedPassword");
-        // Return the same user passed to save to avoid NPE on @NonNull fields
         when(userRepository.save(any(User.class))).thenAnswer(invocation -> invocation.getArgument(0));
         ResponseEntity<?> response = authController.registerUser(signupRequest);
         assertNotNull(response);

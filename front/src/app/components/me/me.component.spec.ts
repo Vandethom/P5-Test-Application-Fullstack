@@ -1,29 +1,29 @@
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatCardModule } from '@angular/material/card';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import { SessionService } from 'src/app/services/session.service';
-import { expect, jest } from '@jest/globals';
-import { MeComponent } from './me.component';
-import { Router } from '@angular/router';
-import { UserService } from 'src/app/services/user.service';
-import { of, throwError } from 'rxjs';
+import { ComponentFixture, TestBed }                      from '@angular/core/testing';
+import { MatCardModule }                                  from '@angular/material/card';
+import { MatFormFieldModule }                             from '@angular/material/form-field';
+import { MatIconModule }                                  from '@angular/material/icon';
+import { MatInputModule }                                 from '@angular/material/input';
+import { MatSnackBar, MatSnackBarModule }                 from '@angular/material/snack-bar';
+import { SessionService }                                 from 'src/app/services/session.service';
+import { expect, jest }                                   from '@jest/globals';
+import { MeComponent }                                    from './me.component';
+import { Router }                                         from '@angular/router';
+import { UserService }                                    from 'src/app/services/user.service';
+import { of, throwError }                                 from 'rxjs';
 
 describe('MeComponent', () => {
-  let meComponent: MeComponent;
-  let fixture: ComponentFixture<MeComponent>;
-  let userService: UserService;
-  let router: Router;
-  let matSnackBar: MatSnackBar;
+  let meComponent          : MeComponent;
+  let fixture              : ComponentFixture<MeComponent>;
+  let userService          : UserService;
+  let router               : Router;
+  let matSnackBar          : MatSnackBar;
   let httpTestingController: HttpTestingController;
 
   const mockSessionService = {
     sessionInformation: {
       admin: true,
-      id: 1,
+      id   : 1,
     },
     logOut: jest.fn(),
   };
@@ -33,25 +33,24 @@ describe('MeComponent', () => {
       declarations: [MeComponent],
       imports: [
         MatSnackBarModule,
-        HttpClientTestingModule, // Use testing module instead of real HTTP
+        HttpClientTestingModule,
         MatCardModule,
         MatFormFieldModule,
         MatIconModule,
         MatInputModule,
       ],
-      providers: [{ provide: SessionService, useValue: mockSessionService }],
+      providers: [{ 
+        provide : SessionService, 
+        useValue: mockSessionService 
+      }],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(MeComponent);
-    meComponent = fixture.componentInstance;
-    
-    userService = TestBed.inject(UserService);
-    router = TestBed.inject(Router);
-    matSnackBar = TestBed.inject(MatSnackBar);
+    fixture               = TestBed.createComponent(MeComponent);
+    meComponent           = fixture.componentInstance;
+    userService           = TestBed.inject(UserService);
+    router                = TestBed.inject(Router);
+    matSnackBar           = TestBed.inject(MatSnackBar);
     httpTestingController = TestBed.inject(HttpTestingController);
-    
-    // Instead of fixture.detectChanges() which triggers HTTP requests,
-    // we'll use mock implementations for those tests that need it
   });
   
   // After each test, verify no pending requests
@@ -62,12 +61,12 @@ describe('MeComponent', () => {
   it('should create MeComponent', () => {
     // Use the spy to prevent real HTTP calls
     jest.spyOn(userService, 'getById').mockReturnValue(of({
-      id: 1,
-      email: 'test@example.com',
+      id       : 1,
+      email    : 'test@example.com',
       firstName: 'Test',
-      lastName: 'User',
-      admin: false,
-      password: '',
+      lastName : 'User',
+      admin    : false,
+      password : '',
       createdAt: new Date(),
       updatedAt: new Date()
     }));
@@ -82,19 +81,20 @@ describe('MeComponent', () => {
 
     const matSnackBarSpy = jest.spyOn(matSnackBar, 'open').mockImplementation(() => {
       return {
-        afterDismissed: () => of({}),
-        afterOpened: () => of({}),
-        onAction: () => of({}),
-        dismiss: () => {},
+        afterDismissed   : () => of({}),
+        afterOpened      : () => of({}),
+        onAction         : () => of({}),
+        dismiss          : () => {},
         dismissWithAction: () => {},
-        instance: {}
-      } as any; // Cast to any to satisfy TypeScript
+        instance         : {}
+      } as any;
     });
-    const sessionSpy = jest.spyOn(mockSessionService, 'logOut');
 
-    const routerSpy = jest
-      .spyOn(router, 'navigate')
-      .mockImplementation(() => Promise.resolve(true));
+    const sessionSpy = jest.spyOn(mockSessionService, 'logOut');
+    const routerSpy  = jest.spyOn(router, 'navigate')
+                           .mockImplementation(
+                            () => Promise.resolve(true)
+                          );
 
     meComponent.delete();
 

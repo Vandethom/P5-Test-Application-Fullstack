@@ -13,7 +13,6 @@ public class SpringBootSecurityJwtApplicationTest {
 
     @Test
     public void applicationStarts() {
-        // Test the main method for code coverage
         SpringBootSecurityJwtApplication.main(new String[]{});
     }
 }

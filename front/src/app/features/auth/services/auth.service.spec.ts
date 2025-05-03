@@ -134,7 +134,6 @@ describe('AuthService', () => {
       password : 'password'
     };
     
-    // Test server error (500)
     let serverError: any;
     service.register(registerRequest).subscribe({
       next : () => fail('Should have failed with 500 error'),
@@ -146,7 +145,6 @@ describe('AuthService', () => {
     expect(serverError.status).toBe(500);
   });
   
-  // Separate test for network error
   it('should handle network errors', () => {
     const registerRequest: RegisterRequest = {
       email    : 'test@test.com',
@@ -164,10 +162,8 @@ describe('AuthService', () => {
     const connectionReq = httpMock.expectOne('api/auth/register');
     connectionReq.error(new ErrorEvent('Network error'));
     
-    // Check for properties that would indicate a network error
     expect(connectionError).toBeTruthy();
     expect(connectionError.name).toBe('HttpErrorResponse');
-    // Angular's HttpErrorResponse has a property error that contains the original error
     expect(connectionError.error instanceof ErrorEvent).toBe(true);
   });
 });

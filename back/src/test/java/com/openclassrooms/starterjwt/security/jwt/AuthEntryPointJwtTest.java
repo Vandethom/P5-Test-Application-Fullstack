@@ -19,17 +19,14 @@ public class AuthEntryPointJwtTest {
     
     @Test
     public void testCommenceReturns401WithCorrectBody() throws Exception {
-        // Given
         AuthEntryPointJwt authEntryPoint = new AuthEntryPointJwt();
         MockHttpServletRequest request = new MockHttpServletRequest();
         request.setServletPath("/api/test");
         MockHttpServletResponse response = new MockHttpServletResponse();
         AuthenticationException authException = new BadCredentialsException("Invalid credentials");
 
-        // When
         authEntryPoint.commence(request, response, authException);
 
-        // Then
         assertEquals(401, response.getStatus());
         assertNotNull(response.getContentType());
         assertTrue(response.getContentType() != null && response.getContentType().contains("application/json"));
@@ -42,17 +39,14 @@ public class AuthEntryPointJwtTest {
     
     @Test
     public void testCommenceWithInsufficientAuthentication() throws IOException, ServletException {
-        // Given
         AuthEntryPointJwt authEntryPoint = new AuthEntryPointJwt();
         MockHttpServletRequest request = new MockHttpServletRequest();
         request.setServletPath("/api/secured");
         MockHttpServletResponse response = new MockHttpServletResponse();
         AuthenticationException authException = new InsufficientAuthenticationException("Full authentication is required");
 
-        // When
         authEntryPoint.commence(request, response, authException);
 
-        // Then
         assertEquals(401, response.getStatus());
         assertNotNull(response.getContentType());
         assertTrue(response.getContentType() != null && response.getContentType().contains("application/json"));
@@ -65,17 +59,14 @@ public class AuthEntryPointJwtTest {
     
     @Test
     public void testCommenceWithUserNotFound() throws IOException, ServletException {
-        // Given
         AuthEntryPointJwt authEntryPoint = new AuthEntryPointJwt();
         MockHttpServletRequest request = new MockHttpServletRequest();
         request.setServletPath("/api/login");
         MockHttpServletResponse response = new MockHttpServletResponse();
         AuthenticationException authException = new UsernameNotFoundException("User not found");
 
-        // When
         authEntryPoint.commence(request, response, authException);
 
-        // Then
         assertEquals(401, response.getStatus());
         assertNotNull(response.getContentType());
         assertTrue(response.getContentType() != null && response.getContentType().contains("application/json"));
@@ -85,17 +76,14 @@ public class AuthEntryPointJwtTest {
     
     @Test
     public void testCommenceWithAccountExpired() throws IOException, ServletException {
-        // Given
         AuthEntryPointJwt authEntryPoint = new AuthEntryPointJwt();
         MockHttpServletRequest request = new MockHttpServletRequest();
         request.setServletPath("/api/resource");
         MockHttpServletResponse response = new MockHttpServletResponse();
         AuthenticationException authException = new AccountExpiredException("Account has expired");
 
-        // When
         authEntryPoint.commence(request, response, authException);
 
-        // Then
         assertEquals(401, response.getStatus());
         assertNotNull(response.getContentType());
         assertTrue(response.getContentType() != null && response.getContentType().contains("application/json"));
@@ -105,17 +93,14 @@ public class AuthEntryPointJwtTest {
     
     @Test
     public void testCommenceWithCredentialsExpired() throws IOException, ServletException {
-        // Given
         AuthEntryPointJwt authEntryPoint = new AuthEntryPointJwt();
         MockHttpServletRequest request = new MockHttpServletRequest();
         request.setServletPath("/api/data");
         MockHttpServletResponse response = new MockHttpServletResponse();
         AuthenticationException authException = new CredentialsExpiredException("Credentials have expired");
 
-        // When
         authEntryPoint.commence(request, response, authException);
 
-        // Then
         assertEquals(401, response.getStatus());
         assertNotNull(response.getContentType());
         assertTrue(response.getContentType() != null && response.getContentType().contains("application/json"));
@@ -125,22 +110,18 @@ public class AuthEntryPointJwtTest {
     
     @Test
     public void testCommenceWithNullServletPath() throws IOException, ServletException {
-        // Given
         AuthEntryPointJwt authEntryPoint = new AuthEntryPointJwt();
         MockHttpServletRequest request = new MockHttpServletRequest();
-        // Not setting servlet path, it will default to empty string
         MockHttpServletResponse response = new MockHttpServletResponse();
         AuthenticationException authException = new BadCredentialsException("Authentication failed");
 
-        // When
         authEntryPoint.commence(request, response, authException);
 
-        // Then
         assertEquals(401, response.getStatus());
         assertNotNull(response.getContentType());
         assertTrue(response.getContentType() != null && response.getContentType().contains("application/json"));
         String responseBody = response.getContentAsString();
         assertTrue(responseBody.contains("\"message\":\"Authentication failed\""));
-        assertTrue(responseBody.contains("\"path\":\"\""));  // Empty path instead of "null"
+        assertTrue(responseBody.contains("\"path\":\"\""));
     }
 }

@@ -9,17 +9,12 @@ import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-/**
- * Test class for the EntityMapper interface.
- * Uses a simple implementation with String as DTO and Integer as Entity for testing.
- */
 public class EntityMapperTest {
     
     private EntityMapper<String, Integer> mapper;
     
     @BeforeEach
     public void setUp() {
-        // Create a simple implementation of EntityMapper for testing
         mapper = new EntityMapper<String, Integer>() {
             @Override
             public Integer toEntity(String dto) {

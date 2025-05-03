@@ -104,7 +104,7 @@ describe('DetailComponent', () => {
         { provide: Router,            useValue: mockRouter },
         { provide: ActivatedRoute,    useValue: mockActivatedRoute }
       ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA] // Add these to handle Material component errors
+      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
     }).compileComponents();
 
     // Reset mocks before each test
@@ -150,39 +150,31 @@ describe('DetailComponent', () => {
   });
 
   it('should allow a user to participate in a session', () => {
-    // First, setup not participating
     component.isParticipate = false;
     
-    // Clear previous calls to detail
     jest.clearAllMocks();
     
-    // Then call participate
     component.participate();
     
     expect(sessionApiService.participate).toHaveBeenCalledWith('1', '1');
-    expect(sessionApiService.detail).toHaveBeenCalledTimes(1); // Just checking it was called
+    expect(sessionApiService.detail).toHaveBeenCalledTimes(1); 
   });
 
   it('should allow a user to un-participate from a session', () => {
-    // First, setup participating
     component.isParticipate = true;
     
-    // Clear previous calls to detail
     jest.clearAllMocks();
     
-    // Then call unParticipate
     component.unParticipate();
     
     expect(sessionApiService.unParticipate).toHaveBeenCalledWith('1', '1');
-    expect(sessionApiService.detail).toHaveBeenCalledTimes(1); // Just checking it was called
+    expect(sessionApiService.detail).toHaveBeenCalledTimes(1); 
   });
 
   it('should determine if user is participating', () => {
-    // Create a new session with the user as a participant
     const participatingSession = {...mockSession, users: [1, 2, 3]};
     jest.spyOn(sessionApiService, 'detail').mockReturnValueOnce(of(participatingSession));
     
-    // Trigger fetchSession again
     component.ngOnInit();
     
     expect(component.isParticipate).toBeTruthy();
@@ -192,38 +184,28 @@ describe('DetailComponent', () => {
     const error = new Error('Delete failed');
     jest.spyOn(sessionApiService, 'delete').mockReturnValue(throwError(() => error));
     
-    // Clear previous calls
     jest.clearAllMocks();
     
-    // The component doesn't log errors to console, so no need to spy on console.error
-    
-    // The component might not handle errors properly, so we use try/catch
     try {
       component.delete();
     } catch (e) {
       // Errors might be thrown and unhandled by the component
     }
     
-    // Verify the delete API was called
     expect(sessionApiService.delete).toHaveBeenCalled();
-    
-    // The component properly handles errors by not showing success messages
-    // or navigating when an error occurs (since those actions are in the success handler)
     expect(matSnackBar.open).not.toHaveBeenCalled();
     expect(router.navigate).not.toHaveBeenCalled();
-    
-    // No console.error assertion since the component doesn't log errors
   });
   
   it('should correctly process users array to determine participation status', () => {
-    // Test when user is participating
     const sessionWithUser = {...mockSession, users: [1, 2, 3]};
+
     jest.spyOn(sessionApiService, 'detail').mockReturnValueOnce(of(sessionWithUser));
     component.ngOnInit();
     expect(component.isParticipate).toBeTruthy();
     
-    // Test when user is not participating
     const sessionWithoutUser = {...mockSession, users: [2, 3]};
+    
     jest.spyOn(sessionApiService, 'detail').mockReturnValueOnce(of(sessionWithoutUser));
     component.ngOnInit();
     expect(component.isParticipate).toBeFalsy();

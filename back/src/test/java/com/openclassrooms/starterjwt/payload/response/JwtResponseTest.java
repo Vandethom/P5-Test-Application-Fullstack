@@ -8,7 +8,6 @@ public class JwtResponseTest {
 
     @Test
     public void testConstructor() {
-        // Arrange
         String accessToken = "test-token-123";
         Long id = 1L;
         String username = "test@example.com";
@@ -16,10 +15,8 @@ public class JwtResponseTest {
         String lastName = "Doe";
         Boolean admin = true;
         
-        // Act
         JwtResponse response = new JwtResponse(accessToken, id, username, firstName, lastName, admin);
         
-        // Assert
         assertEquals(accessToken, response.getToken());
         assertEquals("Bearer", response.getType()); // Default value
         assertEquals(id, response.getId());
@@ -31,7 +28,6 @@ public class JwtResponseTest {
     
     @Test
     public void testSettersAndGetters() {
-        // Arrange
         JwtResponse response = new JwtResponse("initial-token", 1L, "test@example.com", "John", "Doe", false);
         
         String newToken = "new-token-456";
@@ -42,7 +38,6 @@ public class JwtResponseTest {
         String newLastName = "Smith";
         Boolean newAdmin = true;
         
-        // Act
         response.setToken(newToken);
         response.setType(newType);
         response.setId(newId);
@@ -51,7 +46,6 @@ public class JwtResponseTest {
         response.setLastName(newLastName);
         response.setAdmin(newAdmin);
         
-        // Assert
         assertEquals(newToken, response.getToken());
         assertEquals(newType, response.getType());
         assertEquals(newId, response.getId());

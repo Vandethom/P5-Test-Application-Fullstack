@@ -57,13 +57,13 @@ public class UserTest {
         // Testing builder with default/minimal values, respecting @NonNull constraints
         User user = User.builder()
                 .email("minimal@example.com") // Required
-                .lastName("LastName") // Required
-                .firstName("FirstName") // Required
-                .password("password") // Required
-                .admin(false) // Required primitive
+                .lastName("LastName")      // Required
+                .firstName("FirstName")   // Required
+                .password("password")      // Required
+                .admin(false)                 // Required
                 .build();
         
-        assertNull(user.getId()); // Optional
+        assertNull(user.getId());        // Optional
         assertEquals("minimal@example.com", user.getEmail());
         assertEquals("LastName", user.getLastName());
         assertEquals("FirstName", user.getFirstName());
@@ -97,7 +97,7 @@ public class UserTest {
         assertNull(user.getFirstName());
         assertNull(user.getLastName());
         assertNull(user.getPassword());
-        assertFalse(user.isAdmin()); // Default value for boolean primitives is false
+        assertFalse(user.isAdmin());
         assertNull(user.getCreatedAt());
         assertNull(user.getUpdatedAt());
     }

@@ -21,7 +21,6 @@ public class SignupRequestTest {
         validator = factory.getValidator();
     }
     
-    // Helper method to replace String.repeat() which is not available in Java 8
     private String repeatString(String str, int count) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < count; i++) {
@@ -32,53 +31,41 @@ public class SignupRequestTest {
     
     @Test
     public void testGetterAndSetterForEmail() {
-        // Arrange
         SignupRequest signupRequest = new SignupRequest();
         String email = "test@example.com";
         
-        // Act
         signupRequest.setEmail(email);
         
-        // Assert
         assertEquals(email, signupRequest.getEmail());
     }
     
     @Test
     public void testGetterAndSetterForFirstName() {
-        // Arrange
         SignupRequest signupRequest = new SignupRequest();
         String firstName = "John";
         
-        // Act
         signupRequest.setFirstName(firstName);
         
-        // Assert
         assertEquals(firstName, signupRequest.getFirstName());
     }
     
     @Test
     public void testGetterAndSetterForLastName() {
-        // Arrange
         SignupRequest signupRequest = new SignupRequest();
         String lastName = "Doe";
         
-        // Act
         signupRequest.setLastName(lastName);
         
-        // Assert
         assertEquals(lastName, signupRequest.getLastName());
     }
     
     @Test
     public void testGetterAndSetterForPassword() {
-        // Arrange
         SignupRequest signupRequest = new SignupRequest();
         String password = "password123";
         
-        // Act
         signupRequest.setPassword(password);
         
-        // Assert
         assertEquals(password, signupRequest.getPassword());
     }
     
@@ -88,7 +75,6 @@ public class SignupRequestTest {
         SignupRequest signupRequest = createValidSignupRequest();
         signupRequest.setEmail("");
         
-        // Act & Assert
         Set<ConstraintViolation<SignupRequest>> violations = validator.validate(signupRequest);
         assertTrue(violations.size() >= 1);
         assertTrue(violations.stream().anyMatch(v -> v.getPropertyPath().toString().equals("email")));
@@ -96,11 +82,9 @@ public class SignupRequestTest {
     
     @Test
     public void testEmailValidation_WhenEmailIsInvalid() {
-        // Arrange
         SignupRequest signupRequest = createValidSignupRequest();
         signupRequest.setEmail("invalid-email");
         
-        // Act & Assert
         Set<ConstraintViolation<SignupRequest>> violations = validator.validate(signupRequest);
         assertTrue(violations.size() >= 1);
         assertTrue(violations.stream().anyMatch(v -> v.getPropertyPath().toString().equals("email")));
@@ -108,11 +92,9 @@ public class SignupRequestTest {
     
     @Test
     public void testEmailValidation_WhenEmailIsTooLong() {
-        // Arrange
         SignupRequest signupRequest = createValidSignupRequest();
         signupRequest.setEmail(repeatString("a", 45) + "@example.com"); // 51 characters
         
-        // Act & Assert
         Set<ConstraintViolation<SignupRequest>> violations = validator.validate(signupRequest);
         assertTrue(violations.size() >= 1);
         assertTrue(violations.stream().anyMatch(v -> v.getPropertyPath().toString().equals("email")));
@@ -120,11 +102,9 @@ public class SignupRequestTest {
     
     @Test
     public void testFirstNameValidation_WhenFirstNameIsBlank() {
-        // Arrange
         SignupRequest signupRequest = createValidSignupRequest();
         signupRequest.setFirstName("");
         
-        // Act & Assert
         Set<ConstraintViolation<SignupRequest>> violations = validator.validate(signupRequest);
         assertTrue(violations.size() >= 1);
         assertTrue(violations.stream().anyMatch(v -> v.getPropertyPath().toString().equals("firstName")));
@@ -132,11 +112,9 @@ public class SignupRequestTest {
     
     @Test
     public void testFirstNameValidation_WhenFirstNameIsTooShort() {
-        // Arrange
         SignupRequest signupRequest = createValidSignupRequest();
         signupRequest.setFirstName("Jo"); // Less than 3 characters
         
-        // Act & Assert
         Set<ConstraintViolation<SignupRequest>> violations = validator.validate(signupRequest);
         assertTrue(violations.size() >= 1);
         assertTrue(violations.stream().anyMatch(v -> v.getPropertyPath().toString().equals("firstName")));
@@ -144,11 +122,9 @@ public class SignupRequestTest {
     
     @Test
     public void testFirstNameValidation_WhenFirstNameIsTooLong() {
-        // Arrange
         SignupRequest signupRequest = createValidSignupRequest();
         signupRequest.setFirstName(repeatString("J", 21)); // 21 characters
         
-        // Act & Assert
         Set<ConstraintViolation<SignupRequest>> violations = validator.validate(signupRequest);
         assertTrue(violations.size() >= 1);
         assertTrue(violations.stream().anyMatch(v -> v.getPropertyPath().toString().equals("firstName")));
@@ -156,11 +132,9 @@ public class SignupRequestTest {
     
     @Test
     public void testLastNameValidation_WhenLastNameIsBlank() {
-        // Arrange
         SignupRequest signupRequest = createValidSignupRequest();
         signupRequest.setLastName("");
         
-        // Act & Assert
         Set<ConstraintViolation<SignupRequest>> violations = validator.validate(signupRequest);
         assertTrue(violations.size() >= 1);
         assertTrue(violations.stream().anyMatch(v -> v.getPropertyPath().toString().equals("lastName")));
@@ -168,11 +142,9 @@ public class SignupRequestTest {
     
     @Test
     public void testLastNameValidation_WhenLastNameIsTooShort() {
-        // Arrange
         SignupRequest signupRequest = createValidSignupRequest();
         signupRequest.setLastName("Do"); // Less than 3 characters
         
-        // Act & Assert
         Set<ConstraintViolation<SignupRequest>> violations = validator.validate(signupRequest);
         assertTrue(violations.size() >= 1);
         assertTrue(violations.stream().anyMatch(v -> v.getPropertyPath().toString().equals("lastName")));
@@ -180,11 +152,9 @@ public class SignupRequestTest {
     
     @Test
     public void testLastNameValidation_WhenLastNameIsTooLong() {
-        // Arrange
         SignupRequest signupRequest = createValidSignupRequest();
         signupRequest.setLastName(repeatString("D", 21)); // 21 characters
         
-        // Act & Assert
         Set<ConstraintViolation<SignupRequest>> violations = validator.validate(signupRequest);
         assertTrue(violations.size() >= 1);
         assertTrue(violations.stream().anyMatch(v -> v.getPropertyPath().toString().equals("lastName")));
@@ -192,11 +162,9 @@ public class SignupRequestTest {
     
     @Test
     public void testPasswordValidation_WhenPasswordIsBlank() {
-        // Arrange
         SignupRequest signupRequest = createValidSignupRequest();
         signupRequest.setPassword("");
         
-        // Act & Assert
         Set<ConstraintViolation<SignupRequest>> violations = validator.validate(signupRequest);
         assertTrue(violations.size() >= 1);
         assertTrue(violations.stream().anyMatch(v -> v.getPropertyPath().toString().equals("password")));
@@ -204,11 +172,9 @@ public class SignupRequestTest {
     
     @Test
     public void testPasswordValidation_WhenPasswordIsTooShort() {
-        // Arrange
         SignupRequest signupRequest = createValidSignupRequest();
         signupRequest.setPassword("pass"); // Less than 6 characters
         
-        // Act & Assert
         Set<ConstraintViolation<SignupRequest>> violations = validator.validate(signupRequest);
         assertTrue(violations.size() >= 1);
         assertTrue(violations.stream().anyMatch(v -> v.getPropertyPath().toString().equals("password")));
@@ -216,11 +182,9 @@ public class SignupRequestTest {
     
     @Test
     public void testPasswordValidation_WhenPasswordIsTooLong() {
-        // Arrange
         SignupRequest signupRequest = createValidSignupRequest();
         signupRequest.setPassword(repeatString("p", 41)); // 41 characters
         
-        // Act & Assert
         Set<ConstraintViolation<SignupRequest>> violations = validator.validate(signupRequest);
         assertTrue(violations.size() >= 1);
         assertTrue(violations.stream().anyMatch(v -> v.getPropertyPath().toString().equals("password")));
@@ -228,10 +192,8 @@ public class SignupRequestTest {
     
     @Test
     public void testValidation_WhenAllFieldsValid() {
-        // Arrange
         SignupRequest signupRequest = createValidSignupRequest();
         
-        // Act & Assert
         Set<ConstraintViolation<SignupRequest>> violations = validator.validate(signupRequest);
         assertEquals(0, violations.size());
     }

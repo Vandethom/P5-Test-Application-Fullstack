@@ -201,9 +201,9 @@ public class UserDtoIT {
     public void testInvalidUserDto() throws Exception {
         // Create invalid UserDto (missing required fields)
         UserDto invalidDto = new UserDto();
-        invalidDto.setEmail("");  // Empty email which should fail validation
+        invalidDto.setEmail("");          // Empty email which should fail validation
         invalidDto.setFirstName("");  // Empty firstName which should fail validation
-        invalidDto.setLastName("");   // Empty lastName which should fail validation
+        invalidDto.setLastName("");    // Empty lastName which should fail validation
         
         // Attempt to register with invalid DTO
         mockMvc.perform(post("/api/auth/register")

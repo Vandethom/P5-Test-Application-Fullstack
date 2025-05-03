@@ -46,7 +46,7 @@ describe('SessionApiService', () => {
   });
 
   afterEach(() => {
-    httpMock.verify(); // Verify that no requests are outstanding
+    httpMock.verify();
   });
 
   it('should be created', () => {
@@ -73,7 +73,7 @@ describe('SessionApiService', () => {
       let   error: any;
       
       service.all().subscribe({
-        next : () => fail('Expected an error, not sessions'),
+        next : ()  => fail('Expected an error, not sessions'),
         error: (e) => error = e
       });
 

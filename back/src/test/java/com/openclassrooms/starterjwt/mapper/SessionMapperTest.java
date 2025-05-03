@@ -275,7 +275,6 @@ public class SessionMapperTest {
         
         assertNotNull(entity);
         assertNotNull(entity.getUsers());
-        // The mapper is actually adding null to the list (not filtering out)
         assertEquals(2, entity.getUsers().size()); 
         assertEquals(user1.getId(), entity.getUsers().get(0).getId());
         assertNull(entity.getUsers().get(1)); // The second element should be null

@@ -40,7 +40,7 @@ describe('TeacherService', () => {
   });
 
   afterEach(() => {
-    httpMock.verify(); // Verify that no requests are outstanding
+    httpMock.verify();
   });
 
   it('should be created', () => {

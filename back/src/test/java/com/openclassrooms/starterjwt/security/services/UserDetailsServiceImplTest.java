@@ -42,13 +42,10 @@ public class UserDetailsServiceImplTest {
 
     @Test
     public void loadUserByUsername_UserExists_ReturnsUserDetails() {
-        // Given
         when(userRepository.findByEmail(testEmail)).thenReturn(Optional.of(testUser));
 
-        // When
         UserDetails userDetails = userDetailsService.loadUserByUsername(testEmail);
 
-        // Then
         assertNotNull(userDetails);
         assertEquals(testEmail, userDetails.getUsername());
         assertEquals("password", userDetails.getPassword());
@@ -57,18 +54,14 @@ public class UserDetailsServiceImplTest {
         assertEquals(1L, userDetailsImpl.getId());
         assertEquals("John", userDetailsImpl.getFirstName());
         assertEquals("Doe", userDetailsImpl.getLastName());
-        // Admin field check might be failing if the builder doesn't set it properly
-        // Let's just verify the username, password, and ID instead
         verify(userRepository, times(1)).findByEmail(testEmail);
     }
 
     @Test
     public void loadUserByUsername_UserDoesNotExist_ThrowsUsernameNotFoundException() {
-        // Given
         String nonExistentEmail = "nonexistent@example.com";
         when(userRepository.findByEmail(nonExistentEmail)).thenReturn(Optional.empty());
 
-        // When/Then
         Exception exception = assertThrows(UsernameNotFoundException.class, () -> {
             userDetailsService.loadUserByUsername(nonExistentEmail);
         });
@@ -80,13 +73,10 @@ public class UserDetailsServiceImplTest {
 
     @Test
     public void constructor_InitializesUserRepository() {
-        // Given
         UserRepository mockRepo = mock(UserRepository.class);
         
-        // When
         UserDetailsServiceImpl service = new UserDetailsServiceImpl(mockRepo);
         
-        // Then
         assertNotNull(service);
         // We can't directly test the private field, but we can verify it was used correctly
         when(mockRepo.findByEmail(anyString())).thenReturn(Optional.of(testUser));

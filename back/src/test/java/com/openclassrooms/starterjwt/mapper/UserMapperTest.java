@@ -33,7 +33,6 @@ public class UserMapperTest {
                 user.setFirstName(dto.getFirstName() != null ? dto.getFirstName() : "Default");
                 user.setLastName(dto.getLastName() != null ? dto.getLastName() : "User");
                 user.setAdmin(dto.isAdmin());
-                // Set a default password since it's @NonNull in the User entity
                 user.setPassword("defaultPassword");
                 
                 return user;

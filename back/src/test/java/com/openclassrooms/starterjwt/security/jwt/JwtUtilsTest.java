@@ -18,7 +18,6 @@ public class JwtUtilsTest {
     @BeforeEach
     public void setUp() {
         jwtUtils = new JwtUtils();
-        // Inject values using reflection
         org.springframework.test.util.ReflectionTestUtils.setField(jwtUtils, "jwtSecret", jwtSecret);
         org.springframework.test.util.ReflectionTestUtils.setField(jwtUtils, "jwtExpirationMs", jwtExpirationMs);
     }

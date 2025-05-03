@@ -14,7 +14,6 @@ describe('ListComponent', () => {
   let fixture       : ComponentFixture<ListComponent>;
   let sessionService: SessionService;
 
-  // Create a mock session service with a defined sessionInformation
   const mockSessionService = {
     sessionInformation: {
       admin: true,
@@ -22,7 +21,6 @@ describe('ListComponent', () => {
     }
   };
 
-  // Mock SessionApiService to prevent HTTP calls
   const mockSessionApiService = {
     all: jest.fn().mockReturnValue(of([]))
   };
@@ -35,7 +33,6 @@ describe('ListComponent', () => {
         { provide: SessionService,    useValue: mockSessionService },
         { provide: SessionApiService, useValue: mockSessionApiService }
       ],
-      // Add schemas to ignore template errors about undefined values
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
     })
       .compileComponents();
@@ -51,12 +48,10 @@ describe('ListComponent', () => {
   });
 
   it('should handle the case when user is undefined', async () => {
-    // Create a different mock with undefined sessionInformation
     const mockServiceWithoutUser = {
       sessionInformation: undefined
     };
 
-    // Reset TestBed with the new mock service
     await TestBed.resetTestingModule()
       .configureTestingModule({
         declarations: [ListComponent],
@@ -69,12 +64,9 @@ describe('ListComponent', () => {
       })
       .compileComponents();
 
-    // Create component with undefined user
     fixture = TestBed.createComponent(ListComponent);
     component = fixture.componentInstance;
     
-    // Instead of calling detectChanges which might trigger template errors,
-    // just check the component's properties directly
     expect(component.user).toBeUndefined();
   });
 });

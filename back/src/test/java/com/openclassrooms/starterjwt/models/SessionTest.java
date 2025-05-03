@@ -12,10 +12,10 @@ public class SessionTest {
     
     @Test
     public void testGettersSetters() {
-        Session session = new Session();
-        Date sessionDate = new Date();
+        Session session   = new Session();
+        Date sessionDate  = new Date();
         LocalDateTime now = LocalDateTime.now();
-        Teacher teacher = new Teacher();
+        Teacher teacher   = new Teacher();
         teacher.setId(1L);
         List<User> users = new ArrayList<>();
         User user = new User();
@@ -64,10 +64,10 @@ public class SessionTest {
     
     @Test
     public void testBuilder() {
-        Date sessionDate = new Date();
+        Date sessionDate  = new Date();
         LocalDateTime now = LocalDateTime.now();
-        Teacher teacher = new Teacher();
-        List<User> users = new ArrayList<>();
+        Teacher teacher   = new Teacher();
+        List<User> users  = new ArrayList<>();
         
         Session session = Session.builder()
                 .id(1L)

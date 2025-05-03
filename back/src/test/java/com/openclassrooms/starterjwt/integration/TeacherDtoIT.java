@@ -153,7 +153,7 @@ public class TeacherDtoIT {
         // Create invalid TeacherDto (blank required fields)
         TeacherDto invalidDto = new TeacherDto();
         invalidDto.setFirstName(""); // Blank firstName which should fail validation
-        invalidDto.setLastName(""); // Blank lastName which should fail validation
+        invalidDto.setLastName("");   // Blank lastName which should fail validation
 
         // Attempt to create with invalid DTO
         mockMvc.perform(post("/api/teacher")

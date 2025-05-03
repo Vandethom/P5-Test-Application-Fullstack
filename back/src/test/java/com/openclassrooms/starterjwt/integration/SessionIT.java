@@ -203,8 +203,5 @@ public class SessionIT {
         MvcResult result = mockMvc.perform(get("/api/session/{id}", testSession.getId()))
                 .andExpect(status().isOk())
                 .andReturn();
-        
-        // We can't directly check the participants list as it's not returned in the session DTO
-        // but the 200 OK status from the previous calls indicates success
     }
 }

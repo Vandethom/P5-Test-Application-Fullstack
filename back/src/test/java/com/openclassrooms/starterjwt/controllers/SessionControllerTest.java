@@ -91,7 +91,6 @@ public class SessionControllerTest {
 
     @Test
     public void testCreateSessionBadRequest() {
-        // Simulate validation error by passing null (should return 200 with current controller logic)
         ResponseEntity<?> response = sessionController.create(null);
         assertEquals(200, response.getStatusCodeValue());
     }

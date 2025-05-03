@@ -21,9 +21,9 @@ describe('RegisterComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [RegisterComponent],
-      providers: [
+      providers   : [
         {
-          provide: AuthService,
+          provide : AuthService,
           useValue: {
             register: jest.fn()
           }

@@ -33,7 +33,4 @@ public class SpringBootSecurityJwtApplicationTests {
 		assertTrue(appClass.isAnnotationPresent(EnableJpaAuditing.class),
 			"Application should be annotated with @EnableJpaAuditing");
 	}
-	
-	// We're removing the direct main method test since it causes port conflicts
-	// The coverage can still be achieved through the contextLoads test
 }

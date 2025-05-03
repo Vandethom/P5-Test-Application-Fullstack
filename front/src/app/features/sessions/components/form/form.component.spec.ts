@@ -130,18 +130,11 @@ describe('FormComponent', () => {
     };
   
     formComponent.sessionForm?.setValue(session);
-    
-    // Force validation
     formComponent.sessionForm?.markAllAsTouched();
     fixture.detectChanges();
   
-    // Debug DOM structure
-    console.log('Form HTML:', fixture.debugElement.nativeElement.outerHTML);
-  
-    // Check form validation
     expect(formComponent.sessionForm?.invalid).toBeTruthy();
   
-    // Try different button selectors in order of specificity
     const submitButton = 
       fixture.debugElement.query(By.css('button[mat-raised-button]')) || 
       fixture.debugElement.query(By.css('button[type="submit"]')) || 
@@ -151,8 +144,6 @@ describe('FormComponent', () => {
     if (submitButton) {
       expect(submitButton.nativeElement.disabled).toBeTruthy();
     } else {
-      console.log('Skip button check - no button found in DOM');
-      // Use the form's validity property directly instead of a non-existent method
       expect(formComponent.sessionForm?.valid).toBeFalsy();
     }
   });
