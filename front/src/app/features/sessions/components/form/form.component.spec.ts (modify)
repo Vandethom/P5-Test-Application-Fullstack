@@ -1,0 +1,47 @@
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormComponent } from './form.component';
+import { SessionService } from 'path/to/session.service';
+import { Router } from '@angular/router';
+import { of } from 'rxjs';
+
+describe('FormComponent', () => {
+	let component: FormComponent;
+	let fixture: ComponentFixture<FormComponent>;
+	let mockSessionService: jasmine.SpyObj<SessionService>;
+	let mockRouter: jasmine.SpyObj<Router>;
+
+	beforeEach(async () => {
+		mockSessionService = jasmine.createSpyObj('SessionService', ['getSessionInformation']);
+		mockRouter = jasmine.createSpyObj('Router', ['navigate']);
+
+		await TestBed.configureTestingModule({
+			declarations: [FormComponent],
+			providers: [
+				{ provide: SessionService, useValue: mockSessionService },
+				{ provide: Router, useValue: mockRouter }
+			]
+		}).compileComponents();
+	});
+
+	beforeEach(() => {
+		fixture = TestBed.createComponent(FormComponent);
+		component = fixture.componentInstance;
+		mockSessionService.getSessionInformation.and.returnValue(of({ admin: true }));
+		fixture.detectChanges();
+	});
+
+	it('should create', () => {
+		expect(component).toBeTruthy();
+	});
+
+	it('should navigate to sessions if not admin', () => {
+		mockSessionService.getSessionInformation.and.returnValue(of({ admin: false }));
+		component.ngOnInit();
+		expect(mockRouter.navigate).toHaveBeenCalledWith(['/sessions']);
+	});
+
+	it('should not navigate if admin', () => {
+		component.ngOnInit();
+		expect(mockRouter.navigate).not.toHaveBeenCalled();
+	});
+});

@@ -1,0 +1,18 @@
+[
+  {
+    "id": 1,
+    "name": "Yoga Session 1",
+    "description": "Description for session 1",
+    "date": "2025-05-01",
+    "teacher_id": 1,
+    "users": [2, 3]
+  },
+  {
+    "id": 2,
+    "name": "Yoga Session 2",
+    "description": "Description for session 2",
+    "date": "2025-05-10",
+    "teacher_id": 2,
+    "users": [3]
+  }
+]

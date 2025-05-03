@@ -1,0 +1,10 @@
+{
+    "id": 1,
+    "name": "Yoga Session 1",
+    "description": "A relaxing and energizing yoga session for beginners and intermediate practitioners",
+    "date": "2025-05-01T10:00:00.000Z",
+    "teacher_id": 1,
+    "users": [2, 3],
+    "createdAt": "2023-01-15T08:00:00.000Z",
+    "updatedAt": "2023-01-20T14:30:00.000Z"
+  }

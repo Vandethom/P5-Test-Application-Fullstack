@@ -1,6 +1,7 @@
 import { defineConfig } from 'cypress'
 
 export default defineConfig({
+  projectId: '5w3cdg',
   videosFolder: 'cypress/videos',
   screenshotsFolder: 'cypress/screenshots',
   fixturesFolder: 'cypress/fixtures',
@@ -9,7 +10,10 @@ export default defineConfig({
     // We've imported your old cypress plugins here.
     // You may want to clean this up later by importing these.
     setupNodeEvents(on, config) {
-      return require('./cypress/plugins/index.ts').default(on, config)
+      require('@cypress/code-coverage/task')(on, config);
+      require('./cypress/plugins/index.ts').default(on, config)
+
+      return config
     },
     baseUrl    : 'http://localhost:4200',
     supportFile: 'cypress/support/e2e.ts'

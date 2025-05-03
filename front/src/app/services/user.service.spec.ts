@@ -50,7 +50,7 @@ describe('UserService', () => {
         result = user;
       });
 
-      const req = httpMock.expectOne(`api/user/${userId}`);
+      const req = httpMock.expectOne(req => req.url.includes(`api//user/${userId}`));
       expect(req.request.method).toBe('GET');
       req.flush(mockUser);
       
@@ -67,7 +67,7 @@ describe('UserService', () => {
         error: (e) => error = e
       });
 
-      const req = httpMock.expectOne(`api/user/${userId}`);
+      const req = httpMock.expectOne(req => req.url.includes(`api//user/${userId}`));
       req.flush(errorMessage, { status: 404, statusText: 'Not Found' });
       
       expect(error.status).toBe(404);
@@ -83,7 +83,7 @@ describe('UserService', () => {
         completed = true;
       });
 
-      const req = httpMock.expectOne(`api/user/${userId}`);
+      const req = httpMock.expectOne(req => req.url.includes(`api//user/${userId}`));
       expect(req.request.method).toBe('DELETE');
       req.flush({});
       
@@ -100,7 +100,7 @@ describe('UserService', () => {
         error: (e) => error = e
       });
 
-      const req = httpMock.expectOne(`api/user/${userId}`);
+      const req = httpMock.expectOne(req => req.url.includes(`api//user/${userId}`));
       req.flush(errorMessage, { status: 403, statusText: 'Forbidden' });
       
       expect(error.status).toBe(403);

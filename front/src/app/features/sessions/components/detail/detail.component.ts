@@ -32,8 +32,8 @@ export class DetailComponent implements OnInit {
     private matSnackBar: MatSnackBar,
     private router: Router) {
     this.sessionId = this.route.snapshot.paramMap.get('id')!;
-    this.isAdmin = this.sessionService.sessionInformation!.admin;
-    this.userId = this.sessionService.sessionInformation!.id.toString();
+    this.isAdmin = this.sessionService.sessionInformation?.admin || false;
+    this.userId = this.sessionService.sessionInformation?.id.toString() || '';
   }
 
   public ngOnInit(): void {
@@ -67,7 +67,9 @@ export class DetailComponent implements OnInit {
       .detail(this.sessionId)
       .subscribe((session: Session) => {
         this.session = session;
-        this.isParticipate = session.users.some(u => u === this.sessionService.sessionInformation!.id);
+        // Safe checking for sessionInformation
+        const userId = this.sessionService.sessionInformation?.id;
+        this.isParticipate = userId ? session.users.some(u => u === userId) : false;
         this.teacherService
           .detail(session.teacher_id.toString())
           .subscribe((teacher: Teacher) => this.teacher = teacher);

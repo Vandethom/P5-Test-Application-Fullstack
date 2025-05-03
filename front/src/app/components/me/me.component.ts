@@ -21,9 +21,11 @@ export class MeComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    this.userService
-      .getById(this.sessionService.sessionInformation!.id.toString())
-      .subscribe((user: User) => this.user = user);
+    if (this.sessionService.sessionInformation?.id) {
+      this.userService
+        .getById(this.sessionService.sessionInformation.id.toString())
+        .subscribe((user: User) => this.user = user);
+    }
   }
 
   public back(): void {
@@ -31,13 +33,14 @@ export class MeComponent implements OnInit {
   }
 
   public delete(): void {
-    this.userService
-      .delete(this.sessionService.sessionInformation!.id.toString())
-      .subscribe((_) => {
-        this.matSnackBar.open("Your account has been deleted !", 'Close', { duration: 3000 });
-        this.sessionService.logOut();
-        this.router.navigate(['/']);
-      })
+    if (this.sessionService.sessionInformation?.id) {
+      this.userService
+        .delete(this.sessionService.sessionInformation.id.toString())
+        .subscribe((_) => {
+          this.matSnackBar.open("Your account has been deleted !", 'Close', { duration: 3000 });
+          this.sessionService.logOut();
+          this.router.navigate(['/']);
+        });
+    }
   }
-
 }

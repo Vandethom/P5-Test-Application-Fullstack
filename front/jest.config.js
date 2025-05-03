@@ -1,6 +1,8 @@
 module.exports = {
   moduleNameMapper: {
     '@core/(.*)': '<rootDir>/src/app/core/$1',
+    '\\.(html)$': '<rootDir>/src/test-mocks/html-mock.js',
+    '\\.(scss|css)$': '<rootDir>/src/test-mocks/style-mock.js'
   },
   preset: 'jest-preset-angular',
   setupFilesAfterEnv: ['<rootDir>/setup-jest.ts'],

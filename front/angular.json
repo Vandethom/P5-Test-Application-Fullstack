@@ -69,6 +69,16 @@
               "sourceMap": true,
               "namedChunks": true
             },
+            "coverage": {
+              "sourceMap": true,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "namedChunks": true,
+              "customWebpackConfig": {
+                "path": "./cypress/coverage.webpack.ts"
+              }
+            },
             "e2e": {
               "extractLicenses": false,
               "sourceMap": true,
@@ -93,6 +103,9 @@
             },
             "development": {
               "browserTarget": "yoga:build:development"
+            },
+            "coverage": {
+              "browserTarget": "yoga:build:coverage"
             }
           },
           "defaultConfiguration": "development"
@@ -100,7 +113,7 @@
         "serve-coverage": {
           "builder": "@angular-builders/custom-webpack:dev-server",
           "options": {
-            "browserTarget": "yoga:build:e2e"
+            "browserTarget": "yoga:build:coverage"
           }
         },
         "extract-i18n": {
