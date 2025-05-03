@@ -163,7 +163,8 @@ Pour générer les rapports de couverture frontend :
 ```bash
 cd front
 npm run test:coverage    # Couverture des tests unitaires
-npm run e2e:coverage     # Couverture des tests e2e
+npm run e2e:coverage     
+npx nyc report --reporter=text-summary --reporter=lcov # Couverture des tests e2e
 ```
 
 Les rapports sont disponibles aux emplacements suivants :

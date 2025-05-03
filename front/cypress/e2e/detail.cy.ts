@@ -1,3 +1,5 @@
+/// <reference types="cypress" />
+
 describe('detail spec', () => {
     let sessions = [
       {
