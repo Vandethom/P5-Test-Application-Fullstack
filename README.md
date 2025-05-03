@@ -38,8 +38,7 @@ Application complète pour la gestion de sessions de yoga avec une interface uti
 Clonez ce dépôt sur votre machine locale :
 
 ```bash
-git clone https://github.com/your-username/yoga-app.git
-cd yoga-app
+git clone https://github.com/Vandethom/P5-Test-Application-Fullstack.git
 ```
 
 ### Backend (Java/Spring Boot)
@@ -96,7 +95,7 @@ Le serveur démarre sur http://localhost:8080
 
 ```bash
 cd front
-npm start
+ng serve
 ```
 
 L'application est accessible à l'adresse http://localhost:4200
@@ -178,7 +177,3 @@ Les rapports sont disponibles aux emplacements suivants :
 - `back/` : Code source du backend Spring Boot
 - `front/` : Code source du frontend Angular
 - `ressources/` : Ressources additionnelles (scripts SQL, collections Postman)
-
-## Licence
-
-Ce projet est sous licence MIT. Voir le fichier LICENSE pour plus de détails.
