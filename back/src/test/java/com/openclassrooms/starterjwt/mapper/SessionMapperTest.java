@@ -279,4 +279,34 @@ public class SessionMapperTest {
         assertEquals(user1.getId(), entity.getUsers().get(0).getId());
         assertNull(entity.getUsers().get(1)); // The second element should be null
     }
+    
+    @Test
+    public void testToEntity_MixedTeacherAndUserCase() {
+        // Test with null teacher and some users
+        sessionDto.setTeacher_id(null);
+        sessionDto.setUsers(Arrays.asList(1L)); // Only one valid user
+        
+        Session entity = mapper.toEntity(sessionDto);
+        
+        assertNotNull(entity);
+        assertNull(entity.getTeacher());
+        assertNotNull(entity.getUsers());
+        assertEquals(1, entity.getUsers().size());
+        assertEquals(user1.getId(), entity.getUsers().get(0).getId());
+    }
+    
+    @Test
+    public void testToDto_MixedTeacherAndUserCase() {
+        // Test with null teacher and some users
+        session.setTeacher(null);
+        session.setUsers(Arrays.asList(user1)); // Only one user
+        
+        SessionDto dto = mapper.toDto(session);
+        
+        assertNotNull(dto);
+        assertNull(dto.getTeacher_id());
+        assertNotNull(dto.getUsers());
+        assertEquals(1, dto.getUsers().size());
+        assertEquals(user1.getId(), dto.getUsers().get(0));
+    }
 }

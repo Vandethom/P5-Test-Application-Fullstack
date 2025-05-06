@@ -90,10 +90,6 @@ describe('LoginComponent', () => {
       expect(emailControl.hasValidator(Validators.email)).toBeTruthy();
       expect(passwordControl.hasValidator(Validators.required)).toBeTruthy();
       
-      // Debug validator behavior
-      console.log('Password validator check:', passwordControl.validator);
-      
-      // Modified test cases to match actual behavior
       const testCases = [
         { email: '',              password: '',                 expectValid: false, message: 'Empty form' },
         { email: TEST_USER.email, password: '',                 expectValid: false, message: 'Only email' },

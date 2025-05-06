@@ -1,3 +1,5 @@
+/// <reference types="cypress" />
+
 describe('Not-found page', () => {
 
     it('shoud display not found page', () => {

@@ -1,4 +1,4 @@
-import cypress from 'cypress';
+/// <reference types="cypress" />
 
 describe('Login Feature', () => {
   beforeEach(() => {
@@ -24,7 +24,8 @@ describe('Login Feature', () => {
     cy.get('input[formControlName=password]').type("test!1234");
     cy.get('button[type=submit]').click();
 
-    cy.wait('@loginRequest');
+    cy.wait('@loginRequest').its('response.statusCode').should('eq', 200);
+    cy.wait('@sessionsRequest').its('response.statusCode').should('eq', 200);
     cy.url().should('include', '/sessions');
   });
 
@@ -38,7 +39,7 @@ describe('Login Feature', () => {
     cy.get('input[formControlName=password]').type("wrongpassword");
     cy.get('button[type=submit]').click();
 
-    cy.wait('@failedLogin');
+    cy.wait('@failedLogin').its('response.statusCode').should('eq', 401);
     cy.contains('An error occurred').should('be.visible');
   });
 
@@ -59,20 +60,20 @@ describe('Login Feature', () => {
     cy.get('button[type=submit]').should('not.be.disabled');
   });
   
-it('should show validation errors for invalid email', () => {
-  cy.get('input[formControlName=email]').type("invalidemail");
-  
-  cy.get('input[formControlName=email]').blur();
-  cy.get('input[formControlName=password]').click();
-  
-  // examine what's actually in the form to debug
-  cy.get('form').then($form => {
-    cy.log('Form HTML:', $form.html());
+  it('should show validation errors for invalid email', () => {
+    cy.get('input[formControlName=email]').type("invalidemail");
+    
+    cy.get('input[formControlName=email]').blur();
+    cy.get('input[formControlName=password]').click();
+    
+    // examine what's actually in the form to debug
+    cy.get('form').then($form => {
+      cy.log('Form HTML:', $form.html());
+    });
+    
+    cy.get('input[formControlName=email].ng-invalid').should('exist');
+    cy.get('form').contains(/invalid|email|format/i).should('be.visible');
+    cy.get('input[formControlName=password]').type("Password123");
+    cy.get('button[type=submit]').should('be.disabled');
   });
-  
-  cy.get('input[formControlName=email].ng-invalid').should('exist');
-  cy.get('form').contains(/invalid|email|format/i).should('be.visible');
-  cy.get('input[formControlName=password]').type("Password123");
-  cy.get('button[type=submit]').should('be.disabled');
-});
 });

@@ -10,5 +10,7 @@
     "./src/main.ts",
     "./src/test.ts",
     "**/*.conf.js"
-  ]
+  ],
+  "report-dir": "coverage",
+  "reporter": ["html", "lcov", "text"]
 }

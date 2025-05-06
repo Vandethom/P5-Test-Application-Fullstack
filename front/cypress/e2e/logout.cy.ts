@@ -1,3 +1,5 @@
+/// <reference types="cypress" />
+
 describe('Logout Feature', () => {
   beforeEach(() => {
     // Clear application state
@@ -44,8 +46,9 @@ describe('Logout Feature', () => {
       cy.get('input[formControlName=email]').type("user@example.com");
       cy.get('input[formControlName=password]').type("password123");
       cy.get('button[type=submit]').click();
-      cy.wait('@loginRequest');
+      cy.wait('@loginRequest').its('response.statusCode').should('eq', 200);
       cy.url().should('include', '/sessions');
+      cy.wait('@getSessions').its('response.statusCode').should('eq', 200);
     
     });
     

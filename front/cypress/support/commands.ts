@@ -7,7 +7,9 @@
 // commands please read more here:
 // https://on.cypress.io/custom-commands
 // ***********************************************
-
+import './commands'
+import '@cypress/code-coverage/support'
+import 'cypress-mochawesome-reporter/register'
 // Declare the login command on the Cypress namespace
 declare global {
   namespace Cypress {

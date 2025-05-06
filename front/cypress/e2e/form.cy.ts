@@ -1,3 +1,5 @@
+/// <reference types="cypress" />
+
 describe('form spec', () => {
     let session = {
       id         : 1,
@@ -23,6 +25,7 @@ describe('form spec', () => {
       cy.visit('/login');
   
       cy.intercept('POST', '/api/auth/login', {
+        statusCode: 200,
         body: {
           id       : 1,
           username : 'userName',
@@ -30,18 +33,23 @@ describe('form spec', () => {
           lastName : 'lastName',
           admin    : true,
         },
-      });
+      }).as('loginRequest');
   
       cy.intercept(
         {
           method: 'GET',
           url   : '/api/session',
         },
-        []
-      );
+        {
+          statusCode: 200,
+          body: []
+        }
+      ).as('getSessions');
   
       cy.get('input[formControlName=email]').type('yoga@studio.com');
       cy.get('input[formControlName=password]').type(`${'test!1234'}{enter}{enter}`);
+  
+      cy.wait('@loginRequest').its('response.statusCode').should('eq', 200);
   
       cy.url().should('include', '/sessions');
   
@@ -50,8 +58,11 @@ describe('form spec', () => {
           method: 'GET',
           url   : '/api/teacher',
         },
-        [teacher]
-      );
+        {
+          statusCode: 200,
+          body: [teacher]
+        }
+      ).as('getTeachers');
   
       cy.contains('button', 'Create').click();
   
@@ -68,18 +79,27 @@ describe('form spec', () => {
           method: 'POST',
           url   : '/api/session',
         },
-        session
-      );
+        {
+          statusCode: 201,
+          body: session
+        }
+      ).as('createSession');
   
       cy.intercept(
         {
           method: 'GET',
           url   : '/api/session',
         },
-        [session]
-      );
+        {
+          statusCode: 200,
+          body: [session]
+        }
+      ).as('getSessionsAfterCreate');
   
       cy.contains('button', 'Save').click();
+      
+      cy.wait('@createSession').its('response.statusCode').should('eq', 201);
+      
       cy.url().should('include', '/sessions');
       cy.contains('snack-bar-container', 'Session created !').should('be.visible');
       cy.contains('yoga').should('be.visible');
@@ -103,6 +123,7 @@ describe('form spec', () => {
       cy.visit('/login');
   
       cy.intercept('POST', '/api/auth/login', {
+        statusCode: 200,
         body: {
           id       : 1,
           username : 'userName',
@@ -110,19 +131,24 @@ describe('form spec', () => {
           lastName : 'lastName',
           admin    : true,
         },
-      });
+      }).as('loginRequest');
   
       cy.intercept(
         {
           method: 'GET',
           url   : '/api/session',
         },
-        [session]
-      );
+        {
+          statusCode: 200,
+          body: [session]
+        }
+      ).as('getSessions');
   
       cy.get('input[formControlName=email]').type('yoga@studio.com');
       cy.get('input[formControlName=password]').type(`${'test!1234'}{enter}{enter}`);
   
+      cy.wait('@loginRequest').its('response.statusCode').should('eq', 200);
+      
       cy.url().should('include', '/sessions');
   
       cy.intercept(
@@ -130,19 +156,27 @@ describe('form spec', () => {
           method: 'GET',
           url   : '/api/session/1',
         },
-        session
-      );
+        {
+          statusCode: 200,
+          body: session
+        }
+      ).as('getSession');
   
       cy.intercept(
         {
           method: 'GET',
           url   : '/api/teacher',
         },
-        [teacher]
-      );
+        {
+          statusCode: 200,
+          body: [teacher]
+        }
+      ).as('getTeachers');
   
       cy.contains('button', 'Edit').click();
   
+      cy.wait('@getSession').its('response.statusCode').should('eq', 200);
+      
       cy.url().should('include', '/sessions/update/1');
   
       cy.get('input[formControlName=name]').should('have.value', 'yoga');
@@ -163,18 +197,27 @@ describe('form spec', () => {
           method: 'PUT',
           url   : '/api/session/1',
         },
-        sessionUpdated
-      );
+        {
+          statusCode: 200,
+          body: sessionUpdated
+        }
+      ).as('updateSession');
   
       cy.intercept(
         {
           method: 'GET',
           url: '/api/session',
         },
-        [sessionUpdated]
-      );
+        {
+          statusCode: 200,
+          body: [sessionUpdated]
+        }
+      ).as('getSessionsAfterUpdate');
   
       cy.contains('button', 'Save').click();
+      
+      cy.wait('@updateSession').its('response.statusCode').should('eq', 200);
+      
       cy.url().should('include', '/sessions');
       cy.contains('snack-bar-container', 'Session updated !').should('be.visible');
       cy.contains('relaxation').should('be.visible');

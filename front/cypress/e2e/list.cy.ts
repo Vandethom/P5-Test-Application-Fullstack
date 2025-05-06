@@ -1,3 +1,5 @@
+/// <reference types="cypress" />
+
 describe('list spec', () => {
     const sessions = [
       {
@@ -34,7 +36,7 @@ describe('list spec', () => {
           lastName : 'lastName',
           admin    : true,
         },
-      });
+      }).as('loginRequest');
   
       cy.intercept(
         {
@@ -42,10 +44,13 @@ describe('list spec', () => {
           url   : '/api/session',
         },
         sessions
-      );
+      ).as('getSessions');
   
       cy.get('input[formControlName=email]').type('yoga@studio.com');
       cy.get('input[formControlName=password]').type(`${'test!1234'}{enter}{enter}`);
+  
+      cy.wait('@loginRequest').its('response.statusCode').should('eq', 200);
+      cy.wait('@getSessions').its('response.statusCode').should('eq', 200);
   
       cy.url().should('include', '/sessions');
   
@@ -75,7 +80,7 @@ describe('list spec', () => {
           lastName : 'lastName',
           admin    : false,
         },
-      });
+      }).as('loginRequest');
   
       cy.intercept(
         {
@@ -83,10 +88,13 @@ describe('list spec', () => {
           url   : '/api/session',
         },
         sessions
-      );
+      ).as('getSessions');
   
       cy.get('input[formControlName=email]').type('yoga@studio.com');
       cy.get('input[formControlName=password]').type(`${'test!1234'}{enter}{enter}`);
+  
+      cy.wait('@loginRequest').its('response.statusCode').should('eq', 200);
+      cy.wait('@getSessions').its('response.statusCode').should('eq', 200);
   
       cy.url().should('include', '/sessions');
   

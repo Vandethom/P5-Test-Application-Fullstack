@@ -14,7 +14,7 @@ describe('Register Feature', () => {
     cy.get('input[formControlName=password]').type('password123');
     cy.get('button[type=submit]').click();
 
-    cy.wait('@registerRequest');
+    cy.wait('@registerRequest').its('response.statusCode').should('eq', 200);
     cy.url().should('include', '/login');
   });
 
@@ -32,7 +32,7 @@ describe('Register Feature', () => {
     cy.get('input[formControlName=password]').type('password123');
     cy.get('button[type=submit]').click();
 
-    cy.wait('@failedRegister');
+    cy.wait('@failedRegister').its('response.statusCode').should('eq', 400);
     cy.contains('An error occurred').should('be.visible');
   });
 
